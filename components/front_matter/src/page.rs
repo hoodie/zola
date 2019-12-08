@@ -8,7 +8,7 @@ use errors::Result;
 use utils::de::{fix_toml_dates, from_toml_datetime};
 
 /// The front matter of every page
-#[derive(Debug, Clone, PartialEq, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
 pub struct PageFrontMatter {
     /// <title> of the page
@@ -110,6 +110,10 @@ impl PageFrontMatter {
 
     pub fn weight(&self) -> usize {
         self.weight.unwrap()
+    }
+
+    pub fn to_toml(&self) -> String {
+        toml::to_string(&self).unwrap()
     }
 }
 

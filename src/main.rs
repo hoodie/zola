@@ -19,8 +19,12 @@ extern crate front_matter;
 extern crate open;
 extern crate rebuild;
 extern crate utils;
+extern crate slug;
 
-use std::time::Instant;
+use std::{
+    convert::TryFrom,
+    time::Instant
+};
 
 use utils::net::{get_available_port, port_is_available};
 
@@ -40,6 +44,16 @@ fn main() {
                 Ok(()) => (),
                 Err(e) => {
                     console::unravel_errors("Failed to create the project", &e);
+                    ::std::process::exit(1);
+                }
+            };
+        }
+        ("new", Some(matches)) => {
+            let config = cmd::NewPageConfig::try_from(matches).unwrap();
+            match cmd::new_page(config_file, config) {
+                Ok(()) => (),
+                Err(e) => {
+                    console::unravel_errors("Failed to create new page", &e);
                     ::std::process::exit(1);
                 }
             };

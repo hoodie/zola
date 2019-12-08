@@ -160,6 +160,10 @@ impl Site {
         res
     }
 
+    pub fn get_content_path(&self) -> &PathBuf {
+        &self.content_path
+    }
+
     /// We avoid the port the server is going to use as it's not bound yet
     /// when calling this function and we could end up having tried to bind
     /// both http and websocket server to the same port

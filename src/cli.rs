@@ -22,6 +22,17 @@ pub fn build_cli() -> App<'static, 'static> {
                         .default_value(".")
                         .help("Name of the project. Will create a new directory with that name in the current directory")
                 ),
+            SubCommand::with_name("new")
+                .about("Create new page")
+                .args(&[
+                    Arg::with_name("name")
+                        .help("name of the page to be created"),
+                    Arg::with_name("section")
+                        .short("s")
+                        .long("section")
+                        .takes_value(true)
+                        .help("folder in which to create the new page")
+                ]),
             SubCommand::with_name("build")
                 .about("Deletes the output directory if there is one and builds the site")
                 .args(&[
